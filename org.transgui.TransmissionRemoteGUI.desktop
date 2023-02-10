@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Transmission Remote GUI
+Name[en_US]=Transmission Remote GUI
+GenericName=Transmission Remote GUI
+Comment=Transmission Remote GUI is feature rich cross platform front-end to remotely control Transmission daemon via its RPC protocol.
+Exec=/app/bin/transgui %U
+Icon=org.transgui.TransmissionRemoteGUI
+Terminal=false
+MimeType=application/x-resolveproj;
+StartupNotify=true
+Categories=Network

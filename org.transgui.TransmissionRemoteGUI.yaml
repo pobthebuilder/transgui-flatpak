@@ -1,0 +1,40 @@
+app-id: org.transgui.TransmissionRemoteGUI
+runtime: org.freedesktop.Platform
+runtime-version: &runtime-version '22.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.freepascal
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+
+command: /app/bin/transgui
+modules:
+  - shared-modules/gtk2/gtk2.json
+  - name: transgui
+    buildsystem: simple
+    build-commands:
+      - |
+        . /usr/lib/sdk/freepascal/enable.sh
+        lazbuild transgui.lpi
+    post-install:
+      - mkdir -p $FLATPAK_DEST/bin/lang
+      - cp -rp units/transgui $FLATPAK_DEST/bin/
+      - cp -rp readme.txt $FLATPAK_DEST/bin/
+      - cp -rp README.md $FLATPAK_DEST/bin/
+      - cp -rp history.txt $FLATPAK_DEST/bin/
+      - cp -rp LICENSE $FLATPAK_DEST/bin/
+      - cp -rp lang/transgui.* $FLATPAK_DEST/bin/lang/
+      - mkdir -p $FLATPAK_DEST/share/icons/hicolor/48x48/apps
+      - cp transgui.png $FLATPAK_DEST/share/icons/hicolor/48x48/apps/org.transgui.TransmissionRemoteGUI.png
+      - mkdir -p $FLATPAK_DEST/share/applications/
+      - cp org.transgui.TransmissionRemoteGUI.desktop $FLATPAK_DEST/share/applications/org.transgui.TransmissionRemoteGUI.desktop
+
+    sources:
+      - type: file
+        path: org.transgui.TransmissionRemoteGUI.desktop
+      - type: git
+        url: https://github.com/transmission-remote-gui/transgui.git
+        branch: master
